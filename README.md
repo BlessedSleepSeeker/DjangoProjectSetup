@@ -1,1 +1,1 @@
-# DjangoProjectTemplate
+# DjangoProjectGenerator

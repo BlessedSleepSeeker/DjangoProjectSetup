@@ -22,17 +22,17 @@ It is a Powershell Script to setup a dev environment for a Django project.
 
 ### What is installed and generated ?
 
--   Python Virtual Env
--   pre-commit & some hooks
-    -   black
-    -   blacken-docs
-    -   flake8
+-   [Python Virtual Env](https://docs.python.org/3/tutorial/venv.html)
+-   [pre-commit](https://pre-commit.com/) & some hooks
+    -   [black](https://github.com/psf/black)
+    -   [blacken-docs](https://github.com/asottile/blacken-docs)
+    -   [flake8](https://github.com/PyCQA/flake8)
     -   trailing-whitespace
     -   check-yaml
     -   check-added-large-files
--   The config files for the hooks
--   Django
--   A Django tailored .gitignore (thanks to gitignore.io)
+-   The [config files](https://www.toptal.com/developers/gitignore/api/django) for the hooks
+-   [Django](https://www.djangoproject.com/)
+-   A Django tailored [.gitignore](https://www.toptal.com/developers/gitignore/api/django)
 -   requirements.txt
 
 ### What da script doin' ? (in details)

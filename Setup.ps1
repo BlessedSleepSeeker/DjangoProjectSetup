@@ -3,7 +3,7 @@ Created by Camille Gouneau
 12/02/2022
 
 .Synopsis
-Script Setting Up Django, a django project template and some useful features around it
+Script Setting Up a VirtualEnv, Django, a django project template and some useful features around it
 
 .Description
 Prompt User for venv path, django version and django project name
@@ -18,16 +18,23 @@ Check if folder has a .git directory and if yes :
 Start Django Project using django-admin function
 Generate requirements.txt using pip freeze
 
-.Parameter --verbose
+.Parameter -Verbose
 Display child commands output
 
+.Parameter -Clean
+Remove generated files
+
 .Example
-GenerateEnv.ps1
+Setup.ps1
 See description
 
 .Example
-GenerateEnv.ps1 -Verbose
+Setup.ps1 -Verbose
 See description. Every child command (like pip install for example) will display their output
+
+.Example
+Setup.ps1 -Clean
+Delete generated files
 #>
 
 
@@ -54,23 +61,26 @@ $VenvPath = Read-Host "Path to Virtual Environment (leave blank to use '.venv')"
 if ([string]::IsNullOrWhiteSpace($VenvPath)) {
     $VenvPath = ".venv"
 }
+
 $DjangoVersion = Read-Host "Django Version (leave blank to use the latest version)"
+
 do {
     $DjangoProjectName = Read-Host "Name of the Django Project (can't be empty)"
 } while ([string]::IsNullOrWhiteSpace($DjangoProjectName))
 
+
 # Check if python is installed
-Write-Host "Checking if python is present..." -BackgroundColor Cyan
+Write-Host "Checking if python is present..." -BackgroundColor Yellow
 $PythonReturn = & { python --version } 2>&1 #redirection cause python return to stderr
 if ($PythonReturn -is [System.Management.Automation.ErrorRecord]) {
-    Write-Host "Python not found. Please install Python (https://www.python.org/downloads/)"
+    Write-Host "Python not found. Please install Python (https://www.python.org/downloads/)" -BackgroundColor Red
     Exit
     #[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
     #Invoke-WebRequest -Uri "https://www.python.org/ftp/python/3.10.7/python-3.10.7-amd64.exe" -OutFile "c:/temp/python-3.10.7-amd64.exe"
     #& c:\temp\python-3.10.7-amd64.exe \quiet InstallAllUsers=0 PrependPath=1 Include_test=0
 }
 else {
-    Write-Host "Python is already installed, continuing..."  -BackgroundColor Cyan
+    Write-Host "Python is already installed, proceeding..."  -BackgroundColor Green
 }
 
 # Create Virtual Env
@@ -102,9 +112,11 @@ else {
 }
 
 # Check if folder is a git directory
+Write-Host "Checking if the current folder has a .git directory..." -BackgroundColor Yellow
 if (Test-Path -Path .\.git) {
-    Write-Host "Git Directory Found, installing pre-commit..." -BackgroundColor Cyan
+    Write-Host "Git Directory Found !" -BackgroundColor Green
     # Installing pre-commit
+    Write-Host "Installing pre-commit..." -BackgroundColor Cyan
     if ($Verbose) { python -m pip install pre-commit } else { python -m pip install pre-commit | Out-Null }
 
     # Creating config file from pre-commit and flake8
@@ -177,8 +189,24 @@ exclude =
     }
 }
 
-# Creating Django Project
-if ($Verbose) { django-admin startproject $DjangoProjectName } else { django-admin startproject $DjangoProjectName | Out-Null }
+# Prompt for creating the Django Project
+
+$yes = New-Object System.Management.Automation.Host.ChoiceDescription "&Yes", "The executed command is 'django-admin startproject $DjangoProjectName'"
+$no = New-Object System.Management.Automation.Host.ChoiceDescription "&No", "The Django Project creation will be skipped"
+$options = [System.Management.Automation.Host.ChoiceDescription[]]($yes, $no)
+
+$title = "Setup.ps1 - Django Project Creation"
+$message = "Do you want to create a django project ?"
+$result = $host.ui.PromptForChoice($title, $message, $options, 1)
+switch ($result) {
+    0 {
+        Write-Host "Generating Django Project..." -BackgroundColor Cyan
+        if ($Verbose) { django-admin startproject $DjangoProjectName } else { django-admin startproject $DjangoProjectName | Out-Null }
+    } 1 {
+        Write-Host "Skipped Django Project Generation !" -BackgroundColor Magenta
+    }
+}
+
 
 # Freezing pip to requirements.txt
 Write-Host "Generating requirements.txt..." -BackgroundColor Cyan

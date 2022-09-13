@@ -30,18 +30,24 @@ GenerateEnv.ps1 -Verbose
 See description. Every child command (like pip install for example) will display their output
 #>
 
-# Clean up func used in development of this script
-<#
-Remove-Item -Path .\.flake8
-Remove-Item -Path .\.gitignore
-Remove-Item -Path .\.pre-commit-config.yaml
-Remove-Item .\requirements.txt
-Remove-Item -Path .\.venv\
-#>
+
 Param(
-    [switch] $Verbose
+    [switch] $Verbose, # display detailled informations of launched command
+    [switch] $Clean # clean up files 
 )
 
+# Remove File Created By This Script
+if ($Clean) {
+    Write-Host "Starting to clean up..." -BackgroundColor Cyan
+    Remove-Item -Path .\.flake8
+    Remove-Item -Path .\.gitignore
+    Remove-Item -Path .\.pre-commit-config.yaml
+    Remove-Item -Path .\requirements.txt
+    Remove-Item -Path .\.venv\ -Recurse -Force
+    Remove-Item -Path .\.git\hooks\pre-commit
+    Write-Host "Finished Cleaning up !" -BackgroundColor Green
+    Exit # Make Clean Exit outside of debug
+}
 
 # Get User Variables
 $VenvPath = Read-Host "Path to Virtual Environment (leave blank to use '.venv')"
@@ -178,5 +184,5 @@ if ($Verbose) { django-admin startproject $DjangoProjectName } else { django-adm
 Write-Host "Generating requirements.txt..." -BackgroundColor Cyan
 pip freeze > requirements.txt
 
-# Finishing Touch
-Write-Host "Script Finished !" -BackgroundColor Green
+# Finishing Message
+Write-Host "Script finished, environment ready !" -BackgroundColor Green

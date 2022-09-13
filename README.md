@@ -20,19 +20,32 @@ It is a Powershell Script to setup a dev environment for a Django project.
 
 ## F.A.Q
 
-### What da script doin' ?
+### What's installed ?
+
+-   Python Virtual Env
+-   pre-commit & some hooks
+    -   black
+    -   blacken-docs
+    -   flake8
+    -   trailing-whitespace
+    -   check-yaml
+    -   check-added-large-files
+-   Django
+-   A Django tailored .gitignore (thanks to gitignore.io)
+
+### What da script doin' ? (in details)
 
 -   Prompt User for venv path, django version and django project name
 -   Check if python is present, if not, ask you to install it
--   Install and Activate the Virtual Environment
--   Upgrade pip
--   Install Django at a specific version or latest by default
+-   Install and Activate the **Virtual Environment**
+-   Upgrade **pip**
+-   Install **Django** at a specific version or latest by default
 -   Check if folder has a .git directory and if yes :
-    -   Install pre-commit
+    -   Install **pre-commit**
     -   Generate config files for pre-commit (.pre-commit-config.yaml & .flake8)
     -   Get template .gitignore from gitignore.io and append or create the file
--   Start Django Project using django-admin function if you entered a django project name
--   Generate requirements.txt using pip freeze
+-   Start a new **Django Project** using django-admin function if you answer yes to the prompt
+-   Generate **requirements.txt** using **pip freeze**
 
 
 ### Can I use/modify it ?

@@ -4,13 +4,13 @@
 
 -   Download the script and put it in your folder of choice.
 -   Launch the script :  
-`.\SetupEnvAndGenerateProj.ps1`
+`.\Setup.ps1`
 
 -   You can use the `-Verbose` option to display more information about the process :  
-`.\SetupEnvAndGenerateProj.ps1 -Verbose`
+`.\Setup.ps1 -Verbose`
 
 -   You can use the `-Clean` option to remove the files created by the script execution :  
-`.\SetupEnvAndGenerateProj.ps1 -Clean`
+`.\Setup.ps1 -Clean`
 
 -   Answer the prompts then wait for the setup and install.
 

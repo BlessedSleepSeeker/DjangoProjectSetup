@@ -1,5 +1,9 @@
 # DjangoProjectSetup
 
+## What is this ?
+
+It is a Powershell Script to setup a dev environment for a Django project.
+
 ## Usage
 
 -   Download the script and put it in your folder of choice.

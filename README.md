@@ -20,7 +20,7 @@ It is a Powershell Script to setup a dev environment for a Django project.
 
 ## F.A.Q
 
-### What's installed ?
+### What is installed and generated ?
 
 -   Python Virtual Env
 -   pre-commit & some hooks
@@ -30,13 +30,15 @@ It is a Powershell Script to setup a dev environment for a Django project.
     -   trailing-whitespace
     -   check-yaml
     -   check-added-large-files
+-   The config files for the hooks
 -   Django
 -   A Django tailored .gitignore (thanks to gitignore.io)
+-   requirements.txt
 
 ### What da script doin' ? (in details)
 
 -   Prompt User for venv path, django version and django project name
--   Check if python is present, if not, ask you to install it
+-   Check if **python** is present, if not, ask you to install it
 -   Install and Activate the **Virtual Environment**
 -   Upgrade **pip**
 -   Install **Django** at a specific version or latest by default
@@ -50,5 +52,5 @@ It is a Powershell Script to setup a dev environment for a Django project.
 
 ### Can I use/modify it ?
 
-This script was created for my personal use mainly, but you are welcome to use, tweak and change it however you like.  
-Open-Source is cool ! Do no hesitate to give me feedback.
+This script was created and tailored for my personal use mainly, but you are welcome to use, tweak and change it however you like.  
+Open-Source is cool ! Do no hesitate to give me feedback or make any suggestions.

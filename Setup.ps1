@@ -138,7 +138,7 @@ repos:
     rev: v1.12.1
     hooks:
       - id: blacken-docs
-  - repo: https://gitlab.com/pycqa/flake8
+  - repo: https://github.com/pycqa/flake8
     rev: 3.9.2
     hooks:
       - id: flake8
